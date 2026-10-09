@@ -1,10 +1,10 @@
-FROM node:20
+FROM node:22
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
 EXPOSE 3001
-CMD [ "npm","-y","nodemon","-L","index.js" ]
+CMD [ "npx","-y","nodemon","-L","index.js" ]
 
 
 # FROM node:20
