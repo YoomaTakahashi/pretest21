@@ -15,6 +15,10 @@ app.use(fileUp())
 const auth = require('./routes/auth')
 app.use('/api/auth',auth)
 
+
+const profile = require('./routes/profile')
+app.use('/api/profile',profile)
+
 app.use((req,res)=> res.json({message:"Route not Found"}))
 app.listen(3001,()=>{
 
