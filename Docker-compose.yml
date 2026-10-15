@@ -13,14 +13,14 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
     networks: ["app-networks"]
-
+  
   backend:
     build: ./backend
     depends_on:
       - mysql
     container_name: Backend_Container
     ports: ["3001:3001"]
-    command: npx -y nodemon -L index.js
+    command:  npx -y nodemon -L index.js
     restart: always
     volumes:
       - ./backend:/app
@@ -29,11 +29,11 @@ services:
       DB_HOST: mysql
       DB_USER: root
       DB_PASSWORD: 1234
-      DB_DATABASE: "pretest20"
+      DB_DATABASE: "pretest21"
       JWT_SECRET: "Tee&Kate"
       CHOKIDAR_USEPOLLING: "true"
     networks: ["app-networks"]
-
+  
   phpmyadmin:
     image: phpmyadmin
     depends_on:
@@ -46,7 +46,7 @@ services:
       PMA_USER: root
       PMA_PASSWORD: 1234
     networks: ["app-networks"]
-
+  
   mysql:
     image: mysql
     container_name: MYSQL_Container
@@ -57,7 +57,7 @@ services:
       - mysql_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: pretest20
+      MYSQL_DATABASE: pretest21
     networks: ["app-networks"]
 
 networks:

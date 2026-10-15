@@ -1,4 +1,4 @@
-# FROM node:22
+# FROM node:20
 # WORKDIR /app
 # COPY package*.json ./
 # RUN npm install
@@ -7,7 +7,8 @@
 # CMD [ "npm","-y","nodemon","-L","index.js" ]
 
 
-FROM node:22
+
+FROM node:20
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
