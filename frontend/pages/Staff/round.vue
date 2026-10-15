@@ -127,7 +127,7 @@ const saveMember = async()=>{
     try {
         f.id_sys
         ?await axios.put(`${staff}/system/update/${f.id_sys}`,f,{headers:{Authorization:`Bearer ${token}`}})
-        :await axios.put(`${staff}/system/save`,f,{headers:{Authorization:`Bearer ${token}`}})
+        :await axios.post(`${staff}/system/save`,f,{headers:{Authorization:`Bearer ${token}`}})
         alert("ทำรายการสำเร็จ")
         await reset()
         await fetch()
