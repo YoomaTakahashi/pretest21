@@ -10,7 +10,7 @@ const router = express.Router()
 router.post('/regis',async (req,res) => {
     try {
         
-        const pic_user = req.files.pic_user
+        const pic_user = req.files?.pic_user
         const form = JSON.parse(req.body.form)
         let filename = null
         if(pic_user){
@@ -19,7 +19,7 @@ router.post('/regis',async (req,res) => {
         }
         const hash = await bc.hash(form.password,10)
         const [rows] = await db.query(`insert into tb_member(fname,lname,email,username,password,role,pic_user) values(?,?,?,?,?,?,?)`,[form.fname,form.lname,form.email,form.username,hash,form.role,filename])
-        res.json(rows)
+        res.json(rows,{message:"regis"})
     } catch (error) {
         console.error("Error regis",error);
         res.status(500).json({message:"Error regis"})

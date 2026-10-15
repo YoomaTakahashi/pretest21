@@ -17,7 +17,7 @@
                         <v-form @submit.prevent="login">
                             <v-row>
                                 <v-col cols="12" md="12">
-                                    <v-text-field label="ชื่อผู้ใช้" v-model="username" prepend-inner-icon="mdi-username"></v-text-field>
+                                    <v-text-field label="ชื่อผู้ใช้" v-model="username" prepend-inner-icon="mdi-account"></v-text-field>
                                 </v-col>
                                 <v-col cols="12" md="12">
                                     <v-text-field label="รหัสผ่าน" v-model="password" :prepend-inner-icon="show ? 'mdi-eye':'mdi-eye-off'" :type="showPw ? 'text':'password'" @click:prepend-inner="show = !show , showPw = !showPw"></v-text-field>
@@ -57,7 +57,7 @@ const show = ref(false)
 const show2 = ref(false)
 const showPw = ref(false)
 const showPw2 = ref(false)
-const typeR = ["ประธาน","เลขา","กรรมการ"]
+const typeR = ["ฝ่ายบุคลากร","ผู้รับการประเมินผล","กรรมการประเมิน"]
 
 const username = ref('')
 const password = ref('')
@@ -73,7 +73,7 @@ const login = async()=>{
 
             username:username.value,
             password:password.value,
-            role:''
+            role:role.value
 
         })
         console.log("login",res.data);

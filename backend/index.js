@@ -6,12 +6,12 @@ const app = express()
 const path = require('path')
 
 app.use(cors({
-    origin:"http://localhost:3001",
+    origin:"http://localhost:3000",
     credentials: true
 }))
 app.use(express.json())
 app.use('/uploads',express.static(path.join(__dirname,'./uploads')))
-
+app.use(fileUp())
 const auth = require('./routes/auth')
 app.use('/api/auth',auth)
 
