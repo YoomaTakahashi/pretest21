@@ -13,6 +13,13 @@
                                     <th class="border text-center">รายละเอียด</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border text-center">1</td>
+                                    <td class="border text-center">รายงาน</td>
+                                    <td class="border text-center"><v-btn to="/Staff/re_eva" class="text-center" color="info">รายละเอียด</v-btn></td>
+                                </tr>
+                            </tbody>
                         </v-table>
                     </v-card-text>
                 </v-card>

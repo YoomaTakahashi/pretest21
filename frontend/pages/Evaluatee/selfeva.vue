@@ -2,7 +2,7 @@
     <v-container>
         <v-row>
             <v-col cols="12">
-                <v-form @submit.prevent="saveScore">
+                <v-form v-if="user.status_eva === 1" @submit.prevent="saveScore">
                     <h1 class="font-weight-bold">แบบประเมินตนเอง</h1>
                     <v-card class="pa-5 py-4" :elevation="5" rounded>
                         <p>ผู้ใช้งาน : {{ user.fname }} {{ user.lname }}</p>
@@ -28,7 +28,8 @@
                         <v-btn color="blue" type="submit" >บันทึกคะแนน</v-btn>
                     </div>
                 </v-form>
-
+                <v-alert type="success" v-else-if="user.status_eva === 2 || user.status_eva === 3" color="green" variant="tonal">ประเมินสำเร็จ</v-alert>
+                <v-alert type="success" v-else color="error" variant="tonal">ไม่มีแบบประเมิน</v-alert>
             </v-col>
         </v-row>
     </v-container>
@@ -67,7 +68,7 @@ onMounted(async()=>{
 
 const fileMap = ref<Record<string,File>>({})
 const onFilechange = (event:Event,id_topic:number,id_indicate:number)=>{
-    const file = (event.target as HTMLInputElement)?.files?.[1]
+    const file = (event.target as HTMLInputElement)?.files?.[0]
     if(!file)return
     fileMap.value[`${id_topic}-${id_indicate}`] = file
 }
@@ -93,7 +94,7 @@ const saveScore = async()=>{
         alert('กรุณากรอกคะแนนให้สมบรูณ์')
         return
     }
-    formData.append('score',JSON.stringify(allScore))
+    formData.append('scores',JSON.stringify(allScore))
     try {
         await axios.post(`${eva}/selfeva/save`,formData,{headers:{Authorization:`Bearer ${token}`}})
         alert('ประเมินสำเร็จ')

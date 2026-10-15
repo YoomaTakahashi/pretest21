@@ -42,12 +42,18 @@ app.use('/api/Staff/doc',doc)
 const backup = require('./routes/Staff/backup')
 app.use('/api/Staff/backup',backup)
 
+const score_member2 = require('./routes/Staff/score_member')
+app.use('/api/Staff/score_member',score_member2)
+
 //eva
 const edit_eva = require('./routes/Eva/edit_eva')
 app.use('/api/Eva/edit_eva',edit_eva)
 
 const selfeva = require('./routes/Eva/selfeva')
 app.use('/api/Eva/selfeva',selfeva)
+
+const score_member = require('./routes/Eva/score_member')
+app.use('/api/Eva/score_member',score_member)
 
 app.use((req,res)=> res.json({message:"Route not Found"}))
 app.listen(3001,()=>{
