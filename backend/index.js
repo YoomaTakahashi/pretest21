@@ -39,6 +39,9 @@ app.use('/api/Staff/commit',commit)
 const doc = require('./routes/Staff/doc')
 app.use('/api/Staff/doc',doc)
 
+const status = require('./routes/Staff/status')
+app.use('/api/Staff/status',status)
+
 const backup = require('./routes/Staff/backup')
 app.use('/api/Staff/backup',backup)
 

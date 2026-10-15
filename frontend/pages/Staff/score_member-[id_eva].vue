@@ -32,7 +32,7 @@
                         </v-col>
                     </v-row>
                     <div class="mt-5 text-end">
-                        <v-card color="green" class="pa-3"  >คะแนนรวม : {{ user.total_eva }} คะแนน</v-card>
+                        <v-card color="green" class="pa-3"  >คะแนนรวม : {{ user.total_eva || '0' }} คะแนน</v-card>
                     </div>
                 </v-form>
                 <v-alert type="success" v-else-if="user.status_eva === 1" color="warning" variant="tonal">ยังไม่ได้ประเมินตัวเอง</v-alert>
