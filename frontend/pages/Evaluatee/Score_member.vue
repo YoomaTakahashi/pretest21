@@ -25,7 +25,7 @@
                                     <td class="border pa-1 text-center " style="width: 10%;">{{ indicate.detail_indicate }}</td>
                                     <td class="border pa-1 text-center " style="width: 10%;">{{ indicate.point_indicate }}</td>
                                     <td class="border pa-1 text-center " style="width: 10%;">{{ indicate.point_indicate*4 }}</td>
-                                    <td class="border pa-1 text-center " style="width: 10%;">{{ indicate.detail_eva }}</td>
+                                    <td class="border pa-1 text-center " style="width: 10%;">{{ indicate.detail_eva || '-' }}</td>
                                     <td class="border pa-1 text-center " style="width: 10%;">{{ indicate.score_member*indicate.point_indicate }}</td>
                                 </tr>
                             </v-tabel>
