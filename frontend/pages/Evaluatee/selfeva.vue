@@ -75,7 +75,32 @@ const onFilechange = (event:Event,id_topic:number,id_indicate:number)=>{
 const saveScore = async()=>{
     const token = localStorage.getItem('token')
     const formData = new FormData()
-    const allScore = topics.value.flatMap
+    const allScore = topics.value.flatMap((t:any)=>
+        t.indicates.map((i:any)=>{
+            const key = `${t.id_topic}-${i.id_indicate}`
+            const file = fileMap.value[key]
+            if(file)formData.append(`file_${key}`,file)
+            return{
+                id_topic:t.id_topic,
+                id_indicate:i.id_indicate,
+                score:i.score,
+                detail_eva:i.detail_eva,
+                file_key:file ? `file_${key}` :null,
+            }
+        })
+    )
+    if(allScore.some((s:any)=> !s.score)){
+        alert('กรุณากรอกคะแนนให้สมบรูณ์')
+        return
+    }
+    formData.append('score',JSON.stringify(allScore))
+    try {
+        await axios.post(`${eva}/selfeva/save`,formData,{headers:{Authorization:`Bearer ${token}`}})
+        alert('ประเมินสำเร็จ')
+        Promise.all([fetch(),fetchTopic()])
+    } catch (error) {
+        console.error('Error post Score',error)
+    }
 }
 
 </script>
