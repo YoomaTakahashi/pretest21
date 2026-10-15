@@ -63,7 +63,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="text-center text-red" v-if="result.value === 0" colspan="12">ไม่พบข้อมูล</td>
+                                    <td class="text-center text-red" v-if="result.length === 0" colspan="12">ไม่พบข้อมูล</td>
                                 </tr>
                             </tbody>
                         </v-table>
@@ -179,13 +179,30 @@ const result = computed(()=>{
     return dataResult.value.filter((items:any)=>{
 
         return(
-            items.username?.toLowerCase()
+            items.username?.toLowerCase().includes(s)
         )
 
     })
 
 })
 
+const edit = (items:any)=>{
+    form.value = {...items}
+}
+
+const del = async(id_member:number)=>{
+    if(!confirm('ต้องการลบข้อมูลชุดนี้ใช่หรือไม่'))return
+    try {
+        await axios.delete(`${staff}/member/delete/${id_member}`,{headers:{Authorization:`Bearer ${token}`}})
+        await fetch()
+        await reset()
+    } catch (error) {
+        console.error("error delete",error);
+        
+    }
+}
+
+onMounted(fetch)
 
 </script>
 

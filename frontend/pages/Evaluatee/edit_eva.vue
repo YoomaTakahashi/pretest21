@@ -29,7 +29,7 @@
                                     <v-text-field variant="solo-filled" label="ยืนยันรหัสผ่าน" v-model="conP" :error-messages="error.conP" :prepend-inner-icon="show2 ? 'mdi-eye':'mdi-eye-off'" :type="showPw2 ? 'text':'password'" @click:prepend-inner="show2 = !show2 , showPw2 = !showPw2"></v-text-field>
                                 </v-col>
                                 <v-col cols="12" md="12">
-                                    <v-alert variant="tonal" icon="mdi-account"></v-alert>
+                                    <v-alert variant="tonal" icon="mdi-account">{{ form.role }}</v-alert>
                                 </v-col >
                                
                             </v-row>
@@ -88,7 +88,7 @@ function validateForm(){
     if(!f.username.trim())error.value.username = 'กรุณากรอกชื่อผู้ใช้'
     else if(f.username.trim().length < 4)error.value.username = 'ชื่อผู้ใช้ต้องยาวอย่างน้อย 4 ตัวอักษร'
 
-    if(!f.password.trim()){
+    if(!f.password){
     return Object.keys(error.value).length === 0   
     }else{
     if(f.password.trim().length < 6)error.value.password = 'รหัสผ่านต้องยาวอย่างน้อย 6 ตัวอักษร'
@@ -104,10 +104,10 @@ function validateForm(){
 }
 
 const saveMember = async()=>{
-
+    const token = localStorage.getItem('token')
     if(!validateForm())return
     try {
-        await axios.put(`${eva}/edit_eva/`,form.value,{headers:{Authorization:`Barer ${token}`}})
+        await axios.put(`${eva}/edit_eva/`,form.value,{headers:{Authorization:`Bearer ${token}`}})
         alert("แก้ไขสำเร็จ ")
         window.location.reload()
     } catch (error) {
@@ -120,7 +120,7 @@ const saveMember = async()=>{
 const fetch = async()=>{
     const token = localStorage.getItem('token')
     try {
-        const res = await axios.get(`${eva}/edit_eva`,{headers:{Authorization:`Barer ${token}`}})
+        const res = await axios.get(`${eva}/edit_eva`,{headers:{Authorization:`Bearer ${token}`}})
         form.value = res.data
     } catch (error) {
         console.error("Error get user ",error);
