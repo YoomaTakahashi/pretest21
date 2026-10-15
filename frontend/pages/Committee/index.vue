@@ -12,6 +12,7 @@
                                     <th class="text-center border">ชื่อ</th>
                                     <th class="text-center border">นามสกุล</th>
                                     <th class="text-center border">วันที่ออกแบบประเมิน</th>
+                                    <th class="text-center border">สถานะการประเมิน</th>
                                     <th class="text-center border">คะแนนประเมิน</th>
                                 </tr>
                             </thead>
@@ -21,6 +22,7 @@
                                     <td class="text-center border">{{ items.fname }}</td>
                                     <td class="text-center border">{{ items.lname }}</td>
                                     <td class="text-center border">{{ items.day_eva }}</td>
+                                    <td class="text-center border">{{ items.status_eva === 1 ? 'ยังไม่ได้ประเมิน' : items.status_eva === 2 ? 'รอกรรมการประเมิน' : 'ประเมินเสร็จสิ้น' }}</td>
                                     <td class="text-center border">
                                         <v-btn color="blue" class="text-white" size="small" @click="go(items.id_eva)">ตรวจสอบ</v-btn>
                                     </td>

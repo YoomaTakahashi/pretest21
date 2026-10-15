@@ -82,7 +82,7 @@ const login = async()=>{
         const useRole = res.data.role
         if(useRole === 'ฝ่ายบุคลากร')useRouter().push('/Staff')
         if(useRole === 'ผู้รับการประเมินผล')useRouter().push('/Evaluatee')
-        if(useRole === 'กรรมการประเมิน')useRouter().push('/Commit')
+        if(useRole === 'กรรมการประเมิน')useRouter().push('/Committee')
     } catch (err:any) {
         console.error("error login",err);
         error.value = err.response?.data?.message || 'เข้าสู่ระบบล้มเหลว'
