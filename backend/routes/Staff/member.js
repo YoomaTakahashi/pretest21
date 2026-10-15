@@ -53,7 +53,7 @@ router.get('/showE',verifyToken,requireRole('ฝ่ายบุคลากร')
     try {
     
         const [rows] = await db.query(`select * from tb_member where role='ผู้รับการประเมินผล' order by id_member desc`)
-        res.json(rows,{message:"get"})
+        res.json(rows)
 
     } catch (error) {
         console.error("Error get",error);
