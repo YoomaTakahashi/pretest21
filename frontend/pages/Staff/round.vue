@@ -22,7 +22,7 @@
                                 <v-col cols="12" md="6">
                                     <v-text-field label="ปีการประเมิน" v-model="form.year_sys" :error-messages="error.year_sys" type="number"></v-text-field>
                                 </v-col>
-                                <v-col cols="12" md="6">
+                                <v-col cols="12" md="12">
                                     <v-select label="สถานะการประเมิน" v-model="form.status_sys" :error-messages="error.status_sys" :items="[{title:'เปิด',value:'y'},{title:'ปิด',value:'n'}]"></v-select>
                                 </v-col>
                             </v-row>
@@ -127,7 +127,7 @@ const saveMember = async()=>{
     try {
         f.id_sys
         ?await axios.put(`${staff}/system/update/${f.id_sys}`,f,{headers:{Authorization:`Bearer ${token}`}})
-        :await axios.put(`${staff}/system/save`,f,{headers:{Authorization:`Bearer ${token}`}})
+        :await axios.post(`${staff}/system/save`,f,{headers:{Authorization:`Bearer ${token}`}})
         alert("ทำรายการสำเร็จ")
         await reset()
         await fetch()

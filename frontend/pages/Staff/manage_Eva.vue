@@ -4,7 +4,7 @@
             <v-col cols="12" md="12">
                 <v-card>
                     <v-card-title>
-                        <h1 class="text-center text-h5">จัดการกรรมการประเมิน</h1>
+                        <h1 class="text-center text-h5">จัดการผู้รับการประเมินผล</h1>
                     </v-card-title>
                     <v-card-text>
                         <br>
@@ -81,7 +81,7 @@ import { api, staff } from '~/API/base'
 const error = ref<Record<string,string>>({})
 const pic_user = ref<File | null>(null)
 const search = ref('')
-const typeR = ['กรรมการประเมิน'] 
+const typeR = ['ผู้รับการประเมินผล'] 
 const show = ref(false)
 const show2 = ref(false)
 const showPw = ref(false)
@@ -149,7 +149,7 @@ const saveMember = async()=>{
     try {
         f.id_member
         ?await axios.put(`${staff}/member/update/${f.id_member}`,payload,{headers:{Authorization:`Bearer ${token}`}})
-        :await axios.put(`${staff}/member/save`,{...payload,password:f.password},{headers:{Authorization:`Bearer ${token}`}})
+        :await axios.post(`${staff}/member/save`,{...payload,password:f.password},{headers:{Authorization:`Bearer ${token}`}})
         alert("ทำรายการสำเร็จ")
         await reset()
         await fetch()
@@ -162,7 +162,7 @@ const saveMember = async()=>{
 
 const fetch = async()=>{
     try {
-        const res = await axios.get(`${staff}/member/showC`,{headers:{Authorization:`Bearer ${token}`}})
+        const res = await axios.get(`${staff}/member/showE`,{headers:{Authorization:`Bearer ${token}`}})
         dataResult.value = res.data
     } catch (error) {
         console.error("Error get",error);

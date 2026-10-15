@@ -15,9 +15,9 @@ app.use(fileUp())
 const auth = require('./routes/auth')
 app.use('/api/auth',auth)
 
-
 const profile = require('./routes/profile')
 app.use('/api/profile',profile)
+
 const member = require('./routes/Staff/member')
 app.use('/api/Staff/member',member)
 
@@ -29,6 +29,24 @@ app.use('/api/Staff/indicate',indicate)
 
 const system = require('./routes/Staff/system')
 app.use('/api/Staff/system',system)
+
+const eva = require('./routes/Staff/eva')
+app.use('/api/Staff/eva',eva)
+
+const commit = require('./routes/Staff/commit')
+app.use('/api/Staff/commit',commit)
+
+const doc = require('./routes/Staff/doc')
+app.use('/api/Staff/doc',doc)
+
+const status = require('./routes/Staff/status')
+app.use('/api/Staff/status',status)
+
+const backup = require('./routes/Staff/backup')
+app.use('/api/Staff/backup',backup)
+
+const score_member2 = require('./routes/Staff/score_member')
+app.use('/api/Staff/score_member',score_member2)
 
 //eva
 const edit_eva = require('./routes/Eva/edit_eva')
