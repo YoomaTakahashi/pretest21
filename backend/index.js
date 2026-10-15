@@ -43,9 +43,11 @@ const backup = require('./routes/Staff/backup')
 app.use('/api/Staff/backup',backup)
 
 //eva
-
 const edit_eva = require('./routes/Eva/edit_eva')
 app.use('/api/Eva/edit_eva',edit_eva)
+
+const selfeva = require('./routes/Eva/selfeva')
+app.use('/api/Eva/selfeva',selfeva)
 
 app.use((req,res)=> res.json({message:"Route not Found"}))
 app.listen(3001,()=>{

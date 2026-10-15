@@ -90,7 +90,6 @@ const saveMember = async()=>{
     try {
         await axios.post(`${staff}/commit/save/${id_eva}`,List.value,{headers:{Authorization:`Bearer ${token}`}})
         alert("ทำรายการสำเร็จ")
-        await fetch()
     } catch (error) {
         console.error("Error save",error);
         
@@ -126,7 +125,7 @@ const fetch = async()=>{
     }
 }
 
-const nameMap = computed(()=> Object.fromEntries(people.value.map((p)=>[p.fullname_commit,p.id_member])))
+const nameMap = computed(()=> Object.fromEntries(people.value.map((p)=>[p.id_member,p.fullname_commit])))
 const nameOf = (id:number)=> nameMap.value[id]
 const MEMBER = (idx:number)=>{
     const picked = List.value.map((c,i)=>(i !== idx ? c.id_member : null))

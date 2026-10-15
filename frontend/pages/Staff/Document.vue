@@ -89,7 +89,7 @@ const saveMember = async()=>{
     formdata.append('name_doc',name_doc.value)
     formdata.append('file',file.value!)
     try {
-        await axios.post(`${staff}/document/save`,formdata,{headers:{Authorization:`Bearer ${token}`}})
+        await axios.post(`${staff}/doc/save`,formdata,{headers:{Authorization:`Bearer ${token}`}})
         alert("ทำรายการสำเร็จ")
         name_doc.value = ''
         file.value = null

@@ -16,7 +16,7 @@ router.post('/save',verifyToken,requireRole('ฝ่ายบุคลากร')
         if(file.size > maxSize){
             return res.status(400).json({message:"ไฟล์มีขนาดเกิน 10MB"})
         }
-        const filename = Date.now() + path.join()
+        const filename = Date.now() + path.extname(file.name)
         await file.mv(path.join(uploadDir,filename))
         const [rows] = await db.query(`insert into tb_doc(name_doc,day_doc,file) values(?,CURDATE(),?)`,[name_doc,filename])
         res.json(rows,{message:"save"})

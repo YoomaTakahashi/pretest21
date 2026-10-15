@@ -59,7 +59,7 @@ router.get('/header/:id_eva',verifyToken,requireRole('ฝ่ายบุคล�
 router.get('/member/:id_eva',verifyToken,requireRole('ฝ่ายบุคลากร'),async (req,res) => {
     try {
         const {id_eva} = req.params
-        const [pick] = await db.query(`select id_member,concat(fname,' ',lname)as fullname_commit from tb_member where role='กรรมการประเมิน`)
+        const [pick] = await db.query(`select id_member,concat(fname,' ',lname)as fullname_commit from tb_member where role='กรรมการประเมิน'`)
         const [picked] = await db.query(`select m.id_member,fname,lname,id_commit,level_commit as role from tb_member m,tb_eva e,tb_commit c where c.id_eva = ? and c.id_eva=e.id_eva and c.id_member = e.id_member`,[id_eva])
         res.json({pick,picked})
 
