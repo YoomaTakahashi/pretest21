@@ -16,13 +16,8 @@ exports.verifyToken = (req,res,next)=>{
     }
 }
 exports.requireRole = (role)=>(req,res,next)=>{
- try {
-    if(req.user === req.user.role){
-        return next()
+    if(req.user?.role !== role){
+        return res.status(403).json({message:'Invalid no or ROLE'})
     }
-    res.json(403).json({message:'Invalid no or ROLE'})
- } catch (error) {
-    console.error('Invalid NO OR ROLE',error)
-    res.status(403).json({message:'Invalid no or ROLE'})
- }
+    return next()
 }

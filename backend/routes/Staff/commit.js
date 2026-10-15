@@ -48,7 +48,7 @@ router.get('/header/:id_eva',verifyToken,requireRole('ฝ่ายบุคล�
         
         const {id_eva} = req.params
         const [rows] = await db.query(`select * from tb_eva e,tb_member m,tb_system s where e.id_eva =? and e.id_member = m.id_member and e.id_sys = s.id_sys order by id_eva desc`,[id_eva])
-        res.json(rows,{message:"get"})
+        res.json(rows[0],{message:"get"})
 
     } catch (error) {
         console.error("Error get",error);
