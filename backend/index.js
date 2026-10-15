@@ -18,6 +18,9 @@ app.use('/api/auth',auth)
 const profile = require('./routes/profile')
 app.use('/api/profile',profile)
 
+const docnoe = require('./routes/docnoe')
+app.use('/api/docnoe',docnoe)
+
 const dash = require('./routes/dash')
 app.use('/api/dash',dash)
 
@@ -66,6 +69,9 @@ app.use('/api/Eva/score_member',score_member)
 
 const score_commit = require('./routes/Eva/score_commit')
 app.use('/api/Eva/score_commit',score_commit)
+
+const table = require('./routes/Eva/table')
+app.use('/api/Eva/table',table)
 
 app.use((req,res)=> res.json({message:"Route not Found"}))
 app.listen(3001,()=>{
