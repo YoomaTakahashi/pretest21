@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Oct 15, 2026 at 07:44 AM
+-- Generation Time: Oct 15, 2026 at 08:14 AM
 -- Server version: 26.7.0
 -- PHP Version: 8.3.35
 
@@ -71,7 +71,7 @@ CREATE TABLE `tb_eva` (
 --
 
 INSERT INTO `tb_eva` (`id_eva`, `id_member`, `id_sys`, `status_eva`, `day_eva`, `total_eva`, `total_commit`) VALUES
-(1, 1, 1, 1, '2026-10-04', NULL, NULL);
+(1, 1, 1, 2, '2026-10-04', 20.00, NULL);
 
 -- --------------------------------------------------------
 
@@ -89,6 +89,14 @@ CREATE TABLE `tb_evadetail` (
   `score_commit` int DEFAULT NULL,
   `file_eva` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `tb_evadetail`
+--
+
+INSERT INTO `tb_evadetail` (`id_detail`, `id_eva`, `id_indicate`, `status_eva`, `detail_eva`, `score_member`, `score_commit`, `file_eva`) VALUES
+(1, 1, 1, 1, 'ฟ่หกสาด่ฟ', 3, NULL, '1792050849919wlqsc1hbkw.jpg'),
+(2, 1, 2, 1, 'ฟหกดฟกหด', 4, NULL, '1792050849922jey5q3j2rcq.jpg');
 
 -- --------------------------------------------------------
 
@@ -255,7 +263,7 @@ ALTER TABLE `tb_eva`
 -- AUTO_INCREMENT for table `tb_evadetail`
 --
 ALTER TABLE `tb_evadetail`
-  MODIFY `id_detail` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detail` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_indicate`

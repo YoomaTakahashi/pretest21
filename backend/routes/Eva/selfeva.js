@@ -44,9 +44,6 @@ router.post('/save',verifyToken,requireRole('ผู้รับการปร�
             fileMap[key]=filename
         }))
         const [[evaRow]] = await db.query(`select * from tb_member m,tb_eva e,tb_system s where e.id_member=? and e.id_member=m.id_member and e.id_sys=s.id_sys order by e.id_eva desc`,[id_member])
-        if(!evaRow){
-            return res.status(404).json({message:'ไม่พบแบบประเมินสำหรับผู้ใช้นี้'})
-        }
         const id_eva = evaRow.id_eva
         for(const item of scores){
             const filename = item.file_key ? fileMap[item.file_key] || null : null
