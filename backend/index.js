@@ -30,6 +30,9 @@ app.use('/api/Staff/system',system)
 const eva = require('./routes/Staff/eva')
 app.use('/api/Staff/eva',eva)
 
+const commit = require('./routes/Staff/commit')
+app.use('/api/Staff/commit',commit)
+
 app.use((req,res)=> res.json({message:"Route not Found"}))
 app.listen(3001,()=>{
 

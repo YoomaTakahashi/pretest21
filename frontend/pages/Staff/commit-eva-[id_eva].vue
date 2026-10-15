@@ -50,7 +50,7 @@
                                     <td class="border text-center">{{ items.role }}</td>
                                     <td class="border text-center">
                                         <center>
-                                            <v-btn class="text-center text-white ma-2" color="error" @click="del(items.id_eva)">ลบ</v-btn>
+                                            <v-btn class="text-center text-white ma-2" color="error" @click="del(items.id_commit)">ลบ</v-btn>
                                         </center>
                                     </td>
                                 </tr>
@@ -88,9 +88,8 @@ const token = import.meta.client ? localStorage.getItem('token'):null
 const saveMember = async()=>{
 
     try {
-        await axios.post(`${staff}/eva/save`,f,{headers:{Authorization:`Bearer ${token}`}})
+        await axios.post(`${staff}/commit/save/${id_eva}`,List.value,{headers:{Authorization:`Bearer ${token}`}})
         alert("ทำรายการสำเร็จ")
-        await reset()
         await fetch()
     } catch (error) {
         console.error("Error save",error);
@@ -101,66 +100,91 @@ const saveMember = async()=>{
 
 const fetch = async()=>{
     try {
-        const res = await axios.get(`${staff}/eva/show`,{headers:{Authorization:`Bearer ${token}`}})
-        dataResult.value = res.data
-        const res2 = await axios.get(`${staff}/member/showE`,{headers:{Authorization:`Bearer ${token}`}})
-        eva.value = res2.data
-        const res3 = await axios.get(`${staff}/system/show`,{headers:{Authorization:`Bearer ${token}`}})
-        round.value = res3.data
+        const res = await axios.get(`${staff}/commit/header/${id_eva}`,{headers:{Authorization:`Bearer ${token}`}})
+        header.value = res.data
+        const res2 = await axios.get(`${staff}/commit/member/${id_eva}`,{headers:{Authorization:`Bearer ${token}`}})
+        people.value = res2.data.pick
+        const useData = res2.data.picked
+        if(useData.length ===0){
+            List.value = [
+                {id_commit:null,id_member:'',role:''},
+                {id_commit:null,id_member:'',role:''},
+                {id_commit:null,id_member:'',role:''}
+            ]
+        }else{
+            List.value = useData.map((c)=>(
+                {id_commit:c.id_commit,id_member:c.id_member,role:c.role}
+            ))
+
+            while(List.value.length < 3){
+                List.value.push({id_commit:null,id_member:'',role:''})
+            }
+        }
     } catch (error) {
         console.error("Error get",error);
         
     }
 }
 
-const result = computed(()=>{
-
-    if(!search.value)return dataResult.value
-
-    const s = search.value.toLowerCase()
-
-    return dataResult.value.filter((items:any)=>{
-
-        return(
-            items.fname?.toLowerCase().includes(s) ||
-            items.lname?.toLowerCase().includes(s) 
-        )
-
-    })
-
-})
-
-const formatDate = (dateStr:string)=>{
-    if(!dateStr)return '-'
-    const date = new Date(dateStr)
-    const day = String(date.getDate()).padStart(2,'0')
-    const month = String(date.getMonth()+1).padStart(2,'0')
-    const year = String(date.getFullYear())
-
-    return `${day}/${month}/${year}`
+const nameMap = computed(()=> Object.fromEntries(people.value.map((p)=>[p.fullname_commit,p.id_member])))
+const nameOf = (id:number)=> nameMap.value[id]
+const MEMBER = (idx:number)=>{
+    const picked = List.value.map((c,i)=>(i !== idx ? c.id_member : null))
+    return people.value.filter((p)=> !picked.includes(p.id_member))
 }
 
-const edit = (items:any)=>{
-    form.value = {...items}
+const ROLE = (idx:number)=>{
+    const picked = List.value.map((c,i)=>(i !== idx ? c.role : null))
+    return role.filter((p)=> !picked.includes(p))
 }
 
-const del = async(id_eva:number)=>{
+// const result = computed(()=>{
+
+//     if(!search.value)return dataResult.value
+
+//     const s = search.value.toLowerCase()
+
+//     return dataResult.value.filter((items:any)=>{
+
+//         return(
+//             items.fname?.toLowerCase().includes(s) ||
+//             items.lname?.toLowerCase().includes(s) 
+//         )
+
+//     })
+
+// })
+
+// const formatDate = (dateStr:string)=>{
+//     if(!dateStr)return '-'
+//     const date = new Date(dateStr)
+//     const day = String(date.getDate()).padStart(2,'0')
+//     const month = String(date.getMonth()+1).padStart(2,'0')
+//     const year = String(date.getFullYear())
+
+//     return `${day}/${month}/${year}`
+// }
+
+// const edit = (items:any)=>{
+//     form.value = {...items}
+// }
+
+const del = async(id_commit:number)=>{
     if(!confirm('ต้องการลบข้อมูลชุดนี้ใช่หรือไม่'))return
     try {
-        await axios.delete(`${staff}/eva/delete/${id_eva}`,{headers:{Authorization:`Bearer ${token}`}})
+        await axios.delete(`${staff}/commit/delete/${id_commit}`,{headers:{Authorization:`Bearer ${token}`}})
         await fetch()
-        await reset()
     } catch (error) {
         console.error("error delete",error);
         
     }
 }
 
-const go = (id_eva:number)=>{
+// const go = (id_eva:number)=>{
 
-    navigateTo({path:`/Staff/commit-eva-${id_eva}`})
+//     navigateTo({path:`/Staff/commit-eva-${id_eva}`})
 
-}
+// }
 
 onMounted(fetch)
 
